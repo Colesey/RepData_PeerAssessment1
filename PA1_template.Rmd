@@ -12,6 +12,7 @@ device. This device collects data at 5 minute intervals through out the
 day. The data consists of two months of data from an anonymous
 individual collected during the months of October and November, 2012
 and include the number of steps taken in 5 minute intervals each day.
+<<<<<<< HEAD
 
 The objective of this reproducible research is to answer a number of questions using the data provided:  
 1. What is mean total number of steps taken per day?  
@@ -30,6 +31,8 @@ In the data set, the variables are:
 * **interval**: Identifier for the 5-minute interval in which
     measurement was taken
 
+=======
+>>>>>>> fc229ead98efd8518136ea64b75c3b6906f03231
 
 ## Loading and preprocessing the data
 The following code assumes that the data files have been downloaded and unzipped in the current working directory.
