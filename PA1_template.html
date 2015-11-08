@@ -73,16 +73,28 @@ img {
 </div>
 
 
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <p>This assignment makes use of data from a personal activity monitoring device. This device collects data at 5 minute intervals through out the day. The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012 and include the number of steps taken in 5 minute intervals each day.</p>
+<p>The objective of this reproducible research is to answer a number of questions using the data provided:<br />
+1. What is mean total number of steps taken per day?<br />
+2. What is the average daily activity pattern?<br />
+3. Imputing missing values<br />
+4. Are there differences in activity patterns between weekdays and weekends?</p>
+<p>In the data set, the variables are:</p>
+<ul>
+<li><p><strong>steps</strong>: Number of steps taking in a 5-minute interval (missing values are coded as <code>NA</code>)</p></li>
+<li><p><strong>date</strong>: The date on which the measurement was taken in YYYY-MM-DD format</p></li>
+<li><p><strong>interval</strong>: Identifier for the 5-minute interval in which measurement was taken</p></li>
+</ul>
+</div>
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
 <p>The following code assumes that the data files have been downloaded and unzipped in the current working directory.</p>
-<p>The data is loaded from activities.csv and the summary information is as follows:</p>
-<pre class="r"><code>library(xtable)
-activities &lt;- read.csv(file= &quot;activity.csv&quot;, header=TRUE)
-sum_info &lt;- xtable(summary(activities))
-str(activities)</code></pre>
-<p>‘data.frame’: 17568 obs. of 3 variables: $ steps : int NA NA NA NA NA NA NA NA NA NA … $ date : Factor w/ 61 levels “2012-10-01”,“2012-10-02”,..: 1 1 1 1 1 1 1 1 1 1 … $ interval: int 0 5 10 15 20 25 30 35 40 45 …</p>
+<p>The data is loaded from activities.csv and into the data frame called activities. Then convert the date variable from a factor to a date using strptime() function:</p>
+<pre class="r"><code>activities &lt;- read.csv(file= &quot;activity.csv&quot;, header=TRUE)
+activities$date &lt;- strptime(activities$date, format = &quot;%Y-%m-%d&quot;)</code></pre>
+<p>The summary function output is displayed here (only because I can). I’ve used the kable() function instead of the xtable becasue the later refused to format properly into the HTML document. The kable() snippet was found on Stack Oerflow (and is better than xtable but still not perfect).</p>
 <table>
 <thead>
 <tr>
@@ -91,7 +103,7 @@ str(activities)</code></pre>
 <th style="text-align:left;">
 <pre><code> steps &lt;/th&gt;</code></pre>
 <th style="text-align:left;">
-<pre><code>     date &lt;/th&gt;</code></pre>
+<pre><code>  date &lt;/th&gt;</code></pre>
 <th style="text-align:left;">
 <pre><code>interval &lt;/th&gt;</code></pre>
 </tr>
@@ -105,7 +117,7 @@ str(activities)</code></pre>
 Min. : 0.00
 </td>
 <td style="text-align:left;">
-2012-10-01: 288
+Min. :2012-10-01 00:00:00
 </td>
 <td style="text-align:left;">
 Min. : 0.0
@@ -119,7 +131,7 @@ Min. : 0.0
 1st Qu.: 0.00
 </td>
 <td style="text-align:left;">
-2012-10-02: 288
+1st Qu.:2012-10-16 00:00:00
 </td>
 <td style="text-align:left;">
 1st Qu.: 588.8
@@ -133,7 +145,7 @@ Min. : 0.0
 Median : 0.00
 </td>
 <td style="text-align:left;">
-2012-10-03: 288
+Median :2012-10-31 00:00:00
 </td>
 <td style="text-align:left;">
 Median :1177.5
@@ -147,7 +159,7 @@ Median :1177.5
 Mean : 37.38
 </td>
 <td style="text-align:left;">
-2012-10-04: 288
+Mean :2012-10-30 23:32:27
 </td>
 <td style="text-align:left;">
 Mean :1177.5
@@ -161,7 +173,7 @@ Mean :1177.5
 3rd Qu.: 12.00
 </td>
 <td style="text-align:left;">
-2012-10-05: 288
+3rd Qu.:2012-11-15 00:00:00
 </td>
 <td style="text-align:left;">
 3rd Qu.:1766.2
@@ -175,7 +187,7 @@ Mean :1177.5
 Max. :806.00
 </td>
 <td style="text-align:left;">
-2012-10-06: 288
+Max. :2012-11-30 00:00:00
 </td>
 <td style="text-align:left;">
 Max. :2355.0
@@ -189,7 +201,7 @@ Max. :2355.0
 NA’s :2304
 </td>
 <td style="text-align:left;">
-(Other) :15840
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -207,8 +219,14 @@ NA
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
 </div>
+<div id="not-working---so-leave-it-for-now." class="section level1">
+<h1>Not working - so leave it for now.</h1>
+</div>
+<div id="isnas---colsumsis.naactivitiessteps" class="section level1">
+<h1>isNAs &lt;- colSums(is.na(activities$steps))</h1>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
+</div>
 </div>
 
 
