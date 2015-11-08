@@ -6,26 +6,43 @@ output:
   html_document:
     keep_md: true
 ---
-
+##Introduction  
 This assignment makes use of data from a personal activity monitoring
 device. This device collects data at 5 minute intervals through out the
 day. The data consists of two months of data from an anonymous
 individual collected during the months of October and November, 2012
 and include the number of steps taken in 5 minute intervals each day.
-=======
-Testing
+
+The objective of this reproducible research is to answer a number of questions using the data provided:  
+1. What is mean total number of steps taken per day?  
+2. What is the average daily activity pattern?  
+3. Imputing missing values  
+4. Are there differences in activity patterns between weekdays and weekends?  
+
+In the data set, the variables are:
+
+* **steps**: Number of steps taking in a 5-minute interval (missing
+    values are coded as `NA`)
+
+* **date**: The date on which the measurement was taken in YYYY-MM-DD
+    format
+
+* **interval**: Identifier for the 5-minute interval in which
+    measurement was taken
+
 
 ## Loading and preprocessing the data
 The following code assumes that the data files have been downloaded and unzipped in the current working directory.
 
-The data is loaded from activities.csv and the summary information is as follows:
+The data is loaded from activities.csv and into the data frame called activities. Then convert the date variable from a factor to a date using strptime() function:
 
-```{r echo=TRUE, results="asis"}
+```{r read file, echo=TRUE, results="asis"}
 activities <- read.csv(file= "activity.csv", header=TRUE)
-sum_info <- xtable(summary(activities))
-
+activities$date <- strptime(activities$date, format = "%Y-%m-%d")
 
 ```
+
+The summary function output is displayed here (only because I can). I've used the kable() function instead of the xtable becasue the later refused to format properly into the HTML document. The kable() snippet was found on Stack Oerflow (and is better than xtable but still not perfect).
 
 ```{r via kable, echo=FALSE, results='asis'}
 library(knitr)
@@ -35,7 +52,10 @@ kable(sum_info, format = "html", padding = 5, row.names=TRUE)
 
 ```
 
+
 ## What is mean total number of steps taken per day?
+
+
 
 
 
@@ -44,7 +64,13 @@ kable(sum_info, format = "html", padding = 5, row.names=TRUE)
 
 
 ## Imputing missing values
+# Not working - so leave it for now.
+# isNAs <- colSums(is.na(activities$steps))
 
+```{r}
+
+
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
