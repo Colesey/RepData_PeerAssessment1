@@ -148,18 +148,22 @@ median(stepsPerDay$"sum(steps)", na.rm = TRUE)
 
 ## What is the average daily activity pattern?
 
-1. Make a time series plot (i.e. `type = "l"`) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)  
+1. Make a time series plotof the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)  
   
 To achieve this, we create an array object using the tapply() function that groups the data by the slot in the day defined by the interval value and finding the mean number of steps taken in that slot. The array is named dailyActivitiy.  
-This is then plotted as a time series graph using the base graphics plot() function.
+This is then plotted as a time series graph using the base graphics plot() function.  
+I've added a line at the point of maximum average steps in a 5 minute interval to help with the second question in this section.  
 
 
 ```r
 dailyActivity <- tapply(activities$steps, activities$interval, mean, na.rm=TRUE)
-plot(dailyActivity, type="l", col="red", 
+plot(row.names(dailyActivity), dailyActivity, type="l", col="red", 
      main = "Time Series Plot for Average Number of Steps",
      xlab = "Daily Time Slot (5 minute intervals)",
      ylab = "Average number of Steps")
+
+max_act <- dailyActivity[dailyActivity== max(dailyActivity)]
+abline(v=as.numeric(names(max_act)), col = "blue")
 ```
 
 ![](PA1_template_files/figure-html/daily activity-1.png) 
@@ -172,14 +176,15 @@ The index of the array is the time of day that the mean occurs in. In this case,
 
 
 ```r
-dailyActivity[dailyActivity ==max(dailyActivity)]
+high_mean <- dailyActivity[dailyActivity ==max(dailyActivity)]
+print(high_mean)
 ```
 
 ```
 ##      835 
 ## 206.1698
 ```
-
+The highest average number of steps in a time slot is {r} high_mean  
 
 
 ## Imputing missing values
@@ -202,8 +207,11 @@ colSums(is.na(activities))
   
 From the output of the colSums() function we can see that there are a total of 2304 missing values and they are all in the Steps variable.  
 
-2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.  
+2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated.  
 
+DELETE: For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.  
+
+The strategy chosen is to fill each missing value with the mean for that time 5-minute time slot. To do this, we will take the activities data frame and replace the NA values with the mean values for the time slot that we have in dailyActivity and create a new data fram called activitiesNARM.  
 
 
 
